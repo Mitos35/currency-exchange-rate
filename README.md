@@ -9,7 +9,7 @@ Add New Currency: Clients can add a new currency to the system to fetch exchange
 
 Installation
 Clone the repository:
-git clone https://github.com/your-username/currency-exchange-rate.git
+git clone https://github.com/Mitos35/currency-exchange-rate.git
 
 Navigate to the project directory:
 cd currency-exchange-rate-app
