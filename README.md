@@ -26,3 +26,7 @@ docker-compose up -d
 
 API Documentation
 The API is documented using Swagger/OpenAPI Specification. You can access the API documentation at http://localhost:8080/swagger-ui.html.
+
+Docker
+The application can be run in a Docker container along with PostgreSQL using the provided docker-compose.yml file.
+docker-compose up
