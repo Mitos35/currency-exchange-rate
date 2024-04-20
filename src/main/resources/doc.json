@@ -1,0 +1,211 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/currencies/add": {
+      "post": {
+        "tags": [
+          "currency-controller"
+        ],
+        "summary": "Add new currency",
+        "description": "Adds a new currency to the system.",
+        "operationId": "addCurrency",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrencyDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully added new currency.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrencyDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid request body.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrencyDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/currencies/{currencyCode}": {
+      "get": {
+        "tags": [
+          "currency-controller"
+        ],
+        "summary": "Get exchange rates by currency code",
+        "description": "Returns exchange rates for a specific currency.",
+        "operationId": "getExchangeRates",
+        "parameters": [
+          {
+            "name": "currencyCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved exchange rates.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExchangeRateDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Currency not found.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExchangeRateDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/currencies/list": {
+      "get": {
+        "tags": [
+          "currency-controller"
+        ],
+        "summary": "Get all currencies",
+        "description": "Returns a list of all available currencies.",
+        "operationId": "getCurrencies",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CurrencyDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/currencies/convert/{amount}/{fromCurrency}/{toCurrency}": {
+      "get": {
+        "tags": [
+          "currency-controller"
+        ],
+        "summary": "Convert currency",
+        "description": "Converts the specified amount from one currency to another.",
+        "operationId": "convertCurrency",
+        "parameters": [
+          {
+            "name": "amount",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "fromCurrency",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "toCurrency",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully converted currency.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid request parameters.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CurrencyDTO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          }
+        }
+      },
+      "ExchangeRateDTO": {
+        "type": "object",
+        "properties": {
+          "targetCurrencyCode": {
+            "type": "string"
+          },
+          "rate": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}
